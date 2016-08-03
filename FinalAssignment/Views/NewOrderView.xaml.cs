@@ -17,7 +17,7 @@ namespace FinalAssignment.Views
     /// <summary>
     /// Interaction logic for NewOrderView.xaml
     /// </summary>
-    public partial class NewOrderView : Window
+    public partial class NewOrderView : UserControl
     {
         public NewOrderView()
         {
