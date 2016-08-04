@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace FinalAssignment.ViewModels
 {
-    class MainViewModel : Conductor<object>.Collection.OneActive
+    class MainViewModel : Conductor<IScreen>.Collection.OneActive
     {
 
         /// <summary>

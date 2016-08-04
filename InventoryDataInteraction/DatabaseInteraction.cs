@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 namespace InventoryDataInteraction
 {
 
-
-
 	public class DatabaseInteraction //: IInventoryData, IUserRepository
 	{
 		
