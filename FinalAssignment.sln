@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryData", "InventoryData\InventoryData.csproj", "{826B2519-74AD-4F7B-AB77-9529FF38A88A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryDataInteraction", "InventoryDataInteraction\InventoryDataInteraction.csproj", "{F5BF90BA-A083-41C9-B1A4-F3BF6D66C132}"
+	ProjectSection(ProjectDependencies) = postProject
+		{330ACF0B-9109-4727-8B10-BFF65701CBD6} = {330ACF0B-9109-4727-8B10-BFF65701CBD6}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryDataMapping", "InventoryDataMapping\InventoryDataMapping.csproj", "{330ACF0B-9109-4727-8B10-BFF65701CBD6}"
 EndProject
