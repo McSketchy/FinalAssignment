@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using InventoryData;
+using InventoryDataInteraction;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,7 +29,9 @@ namespace FinalAssignment.ViewModels
 
         public InventoryViewModel()
         {
-            generateTempData();
+            DatabaseInteraction dbi = new DatabaseInteraction();
+            Items = new ObservableCollection<Item>(dbi.GetItems());
+            //generateTempData();
         }
 
         #region fakeData

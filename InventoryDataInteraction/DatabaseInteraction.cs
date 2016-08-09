@@ -17,20 +17,7 @@ namespace InventoryDataInteraction
 
 		public IEnumerable<Order> GetOrders()
 		{
-            try
-            {
-                using (var db = new InventoryContext())
-                {
-                    return (from order in db.Orders.Include("OrderItems")
-                                                   .Include("OrderItems.Item")
-                                                   .Include("Purchaser")
-                            select order).ToList();
-                }
-            }
-            catch (Exception exc)
-            {
-                Debug.Write(exc.InnerException.Message);
-            }
+            
             using (var db = new InventoryContext())
             {
                 return (from order in db.Orders.Include("OrderItems")
