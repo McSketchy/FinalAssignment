@@ -26,9 +26,15 @@
             </DataGrid.Columns>
         </DataGrid>
         <Separator Grid.Row="1"/>
-        <!--Second DataGrid to Display order details goes here 
-        <DataGrid Grid.Row="2">
-            
-        </DataGrid> -->
+        <!--Second DataGrid to Display order details goes here -->
+        <DataGrid Grid.Row="2" ItemsSource="{Binding SelectedOrders.OrderItems}" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Center" Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Item Number" Binding="{Binding Item.ItemNumber}" />
+                <DataGridTextColumn Header="Item Name" Binding="{Binding Item.Name}"/>
+                <DataGridTextColumn Header="Item Cost" Binding="{Binding Item.Cost}"/>
+                <DataGridTextColumn Header="Quantity Purchased" Binding="{Binding Quantity}"/>
+                <DataGridTextColumn Header="Cost Paid per Item" Binding="{Binding ItemCost}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

@@ -1,4 +1,4 @@
-using System.Data.Entity;
+ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using InventoryDataMapping.Models.Mapping;
 using InventoryData;

@@ -1,10 +1,11 @@
 ﻿using InventoryData;
-using InventoryDataMapping.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InventoryDataMapping.Models;
 
 namespace InventoryDataInteraction
 {
@@ -16,14 +17,28 @@ namespace InventoryDataInteraction
 
 		public IEnumerable<Order> GetOrders()
 		{
-			using(var db = new InventoryContext())
-			{
-				return (from order in db.Orders.Include("OrderItems")
-											   .Include("OrderItems.Item")
-											   .Include("Purchaser")
-						select order).ToList();
-			}
-		}
+            try
+            {
+                using (var db = new InventoryContext())
+                {
+                    return (from order in db.Orders.Include("OrderItems")
+                                                   .Include("OrderItems.Item")
+                                                   .Include("Purchaser")
+                            select order).ToList();
+                }
+            }
+            catch (Exception exc)
+            {
+                Debug.Write(exc.InnerException.Message);
+            }
+            using (var db = new InventoryContext())
+            {
+                return (from order in db.Orders.Include("OrderItems")
+                                               .Include("OrderItems.Item")
+                                               .Include("Purchaser")
+                        select order).ToList();
+            }
+        }
 
 		public IEnumerable<Item> GetItems()
 		{
@@ -113,47 +128,47 @@ namespace InventoryDataInteraction
 			}
 		}
 
-		public IEnumerable<User> GetUsers()
-		{
-			using (var db = new InventoryContext())
-			{
-				return (from user in db.Users
-						select user).ToList();
-			}
-		}
+        public IEnumerable<User> GetUsers()
+        {
+            using (var db = new InventoryContext())
+            {
+                return (from user in db.Users
+                        select user).ToList();
+            }
+        }
 
-		public bool SaveUser(User user)
-		{
-			if (user == null)
-				return false;
+        public bool SaveUser(User user)
+        {
+            if (user == null)
+                return false;
 
-			try
-			{
-				using (var db = new InventoryContext())
-				{
-					db.Users.Add(user);
-					db.SaveChanges();
-				}
-				return true;
-			}
-			catch (Exception e)
-			{
-				return false;
-			}
-		}
+            try
+            {
+                using (var db = new InventoryContext())
+                {
+                    //db.Users.Add(user);
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
-		public IEnumerable<Order> GetUserOrders(int userId)
-		{
-			using (var db = new InventoryContext())
-			{
-				return (from u in db.UserOrders
-						where u.UserId == userId
-						select u.Order).ToList();
-			}
-		}
+        public IEnumerable<Order> GetUserOrders(int userId)
+        {
+            using (var db = new InventoryContext())
+            {
+                return (from u in db.UserOrders
+                        where u.UserId == userId
+                        select u.Order).ToList();
+            }
+        }
 
 
-		public Task<IEnumerable<Order>> GetOrdersAsync()
+        public Task<IEnumerable<Order>> GetOrdersAsync()
 		{
 			var factory = new TaskFactory<IEnumerable<Order>>();
 			return factory.StartNew(() =>
@@ -207,19 +222,19 @@ namespace InventoryDataInteraction
 			});
 		}
 
-		public Task<IEnumerable<User>> GetUsersAsync()
-		{
-			return new TaskFactory<IEnumerable<User>>().StartNew(this.GetUsers);
-		}
+        public Task<IEnumerable<User>> GetUsersAsync()
+        {
+            return new TaskFactory<IEnumerable<User>>().StartNew(this.GetUsers);
+        }
 
-		public Task<bool> SaveUserAsync(User user)
-		{
-			return new TaskFactory<bool>().StartNew(() => this.SaveUser(user));
-		}
+        public Task<bool> SaveUserAsync(User user)
+        {
+            return new TaskFactory<bool>().StartNew(() => this.SaveUser(user));
+        }
 
-		public Task<IEnumerable<Order>> GetUserOrdersAsync(int userId)
-		{
-			return new TaskFactory<IEnumerable<Order>>().StartNew(() => this.GetUserOrders(userId));
-		}
-	}
+        public Task<IEnumerable<Order>> GetUserOrdersAsync(int userId)
+        {
+            return new TaskFactory<IEnumerable<Order>>().StartNew(() => this.GetUserOrders(userId));
+        }
+    }
 }

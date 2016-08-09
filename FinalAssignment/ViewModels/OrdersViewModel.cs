@@ -1,30 +1,11 @@
-﻿
-
-
-
-/* _SelectedOrders contians the Order object that is currently selected i tihnk you can use this to populate the datagrid
- * As far as I could tell, Caliburn handles the DataContext of a DataGrid (It will auto generate the whole datagrid if you
- * have AutoGenerateColumns = true, but that forces it to include all the properties of the object not just the ones you want
- * so I had to use normal binding on the actual contents of each cell.
- * You might have to modify the tempData as I left some properties blank if I thought I did not need them.
- */
-
- 
-
-
-
-
-
-
-
-
-
-
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using InventoryData;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using InventoryDataInteraction;
 
 namespace FinalAssignment.ViewModels
 {
@@ -60,6 +41,8 @@ namespace FinalAssignment.ViewModels
 
         public OrdersViewModel()
         {
+            //DatabaseInteraction dbi = new DatabaseInteraction();
+            //Orders = new ObservableCollection<Order>(dbi.GetOrders());
             generateTempData();
         }
 
@@ -103,26 +86,31 @@ namespace FinalAssignment.ViewModels
             oiA.OrderNumber = 999;
             oiA.Quantity = 2;
             oiA.Item = iA;
+            oiA.ItemCost = 2.99M;
 
             OrderItem oiB = new OrderItem();
             oiB.OrderNumber = 943;
             oiB.Quantity = 7;
             oiB.Item = iB;
+            oiB.ItemCost = 14.99M;
 
             OrderItem oiC = new OrderItem();
             oiC.OrderNumber = 456;
             oiC.Quantity = 17;
             oiC.Item = iC;
+            oiC.ItemCost = 2435.99M;
 
             OrderItem oiD = new OrderItem();
             oiD.OrderNumber = 123;
             oiD.Quantity = 7;
             oiD.Item = iD;
+            oiD.ItemCost = 500.00M;
 
             OrderItem oiE = new OrderItem();
             oiE.OrderNumber = 959;
             oiE.Quantity = 300;
             oiE.Item = iE;
+            oiE.ItemCost = 25.99M;
 
             User uA = new User();
             uA.Name = "Matt Damon";
@@ -141,7 +129,7 @@ namespace FinalAssignment.ViewModels
             oA.OrderItems.Add(oiB);
             oA.OrderItems.Add(oiC);
             oA.TotalCost = 0;
-            foreach(OrderItem oi in oA.OrderItems)
+            foreach (OrderItem oi in oA.OrderItems)
             {
                 oA.TotalCost += oi.Quantity * oi.Item.Cost;
             }
