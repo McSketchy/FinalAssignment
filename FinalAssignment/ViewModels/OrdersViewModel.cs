@@ -11,15 +11,6 @@
 
  
 
-
-
-
-
-
-
-
-
-
 using Caliburn.Micro;
 using InventoryData;
 using System;
@@ -103,26 +94,31 @@ namespace FinalAssignment.ViewModels
             oiA.OrderNumber = 999;
             oiA.Quantity = 2;
             oiA.Item = iA;
+            oiA.ItemCost = 2.99M;
 
             OrderItem oiB = new OrderItem();
             oiB.OrderNumber = 943;
             oiB.Quantity = 7;
             oiB.Item = iB;
+            oiB.ItemCost = 14.99M;
 
             OrderItem oiC = new OrderItem();
             oiC.OrderNumber = 456;
             oiC.Quantity = 17;
             oiC.Item = iC;
+            oiC.ItemCost = 2435.99M;
 
             OrderItem oiD = new OrderItem();
             oiD.OrderNumber = 123;
             oiD.Quantity = 7;
             oiD.Item = iD;
+            oiD.ItemCost = 500.00M;
 
             OrderItem oiE = new OrderItem();
             oiE.OrderNumber = 959;
             oiE.Quantity = 300;
             oiE.Item = iE;
+            oiE.ItemCost = 25.99M;
 
             User uA = new User();
             uA.Name = "Matt Damon";
@@ -143,7 +139,7 @@ namespace FinalAssignment.ViewModels
             oA.TotalCost = 0;
             foreach(OrderItem oi in oA.OrderItems)
             {
-                oA.TotalCost += oi.Quantity * oi.Item.Cost;
+                oA.TotalCost += oi.Quantity * oi.ItemCost;
             }
 
             Order oB = new Order();
@@ -156,7 +152,7 @@ namespace FinalAssignment.ViewModels
             oB.TotalCost = 0;
             foreach (OrderItem oi in oB.OrderItems)
             {
-                oB.TotalCost += oi.Quantity * oi.Item.Cost;
+                oB.TotalCost += oi.Quantity * oi.ItemCost;
             }
 
             Order oC = new Order();
@@ -168,13 +164,15 @@ namespace FinalAssignment.ViewModels
             oC.TotalCost = 0;
             foreach (OrderItem oi in oC.OrderItems)
             {
-                oC.TotalCost += oi.Quantity * oi.Item.Cost;
+                oC.TotalCost += oi.Quantity * oi.ItemCost;
             }
 
             Orders = new ObservableCollection<Order>();
             Orders.Add(oA);
             Orders.Add(oB);
             Orders.Add(oC);
+
+            
         }
         #endregion
     }
