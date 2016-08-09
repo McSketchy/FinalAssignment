@@ -25,7 +25,9 @@
                 <DataGridTextColumn Header="Order Total" Binding="{Binding TotalCost}"/>
             </DataGrid.Columns>
         </DataGrid>
+        
         <Separator Grid.Row="1"/>
+        
         <DataGrid Grid.Row="2" ItemsSource="{Binding SelectedOrders.OrderItems}" AutoGenerateColumns="False" IsReadOnly="True"
                   HorizontalAlignment="Center" Margin="0,0,0,10">
             <DataGrid.Columns>

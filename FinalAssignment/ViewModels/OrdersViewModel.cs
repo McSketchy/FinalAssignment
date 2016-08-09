@@ -41,9 +41,9 @@ namespace FinalAssignment.ViewModels
 
         public OrdersViewModel()
         {
-            //DatabaseInteraction dbi = new DatabaseInteraction();
-            //Orders = new ObservableCollection<Order>(dbi.GetOrders());
-            generateTempData();
+            DatabaseInteraction dbi = new DatabaseInteraction();
+            Orders = new ObservableCollection<Order>(dbi.GetOrders());
+            //generateTempData();
         }
 
         #region tempData
