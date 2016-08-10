@@ -20,9 +20,9 @@
                   HorizontalAlignment="Center" SelectedItem="{Binding SelectedOrders}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Order Number" Binding="{Binding OrderNumber}"/>
-                <DataGridTextColumn Header="Date Placed" Binding="{Binding DatePlaced}"/>
+                <DataGridTextColumn Header="Date Placed" Binding="{Binding DatePlaced, StringFormat='MMM dd, yyyy'}"/>
                 <DataGridTextColumn Header="Purchaser" Binding="{Binding Purchaser.Name}"/>
-                <DataGridTextColumn Header="Order Total" Binding="{Binding TotalCost}"/>
+                <DataGridTextColumn Header="Order Total" Binding="{Binding TotalCost, StringFormat=c}"/>
             </DataGrid.Columns>
         </DataGrid>
         
@@ -33,9 +33,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Item Number" Binding="{Binding Item.ItemNumber}" />
                 <DataGridTextColumn Header="Item Name" Binding="{Binding Item.Name}"/>
-                <DataGridTextColumn Header="Item Cost" Binding="{Binding Item.Cost}"/>
+                <DataGridTextColumn Header="Item Cost" Binding="{Binding Item.Cost, StringFormat=c}"/>
                 <DataGridTextColumn Header="Quantity Purchased" Binding="{Binding Quantity}"/>
-                <DataGridTextColumn Header="Cost Paid per Item" Binding="{Binding ItemCost}"/>
+                <DataGridTextColumn Header="Cost Paid per Item" Binding="{Binding ItemCost, StringFormat=c}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

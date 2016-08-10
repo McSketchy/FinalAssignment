@@ -21,7 +21,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Item Number" Binding="{Binding ItemNumber}"/>
                 <DataGridTextColumn Header="Item Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Cost" Binding="{Binding Cost}"/>
+                <DataGridTextColumn Header="Cost" Binding="{Binding Cost, StringFormat=c}"/>
                 <DataGridTextColumn Header="Qty On Hand" Binding="{Binding QuantityOnHand}"/>
             </DataGrid.Columns>
         </DataGrid>
