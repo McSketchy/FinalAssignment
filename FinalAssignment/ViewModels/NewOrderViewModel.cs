@@ -1,9 +1,21 @@
 ﻿
 
-//I added DisplayMemberPath variable to the Purchaser ComboBox so it would show the Name property
-//of the User Objects it was listing. I also did the database hookup for it so you could get an idea
-//of how to do it for the other things. Also including a few notes further down to help guide you a bit
-//It's all guess work on my end so good luck :P
+
+
+
+
+
+
+/*TODO: 
+ * Finish CanSaveOrder property
+ * Finish UpdateOrderTotal method
+ * Test SaveOrder Mehtod
+ * Make it Pretty
+ */
+
+
+
+
 
 
 using Caliburn.Micro;
@@ -64,11 +76,7 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => PurchaseDate);
             }
         }
-
-        /*
-         *  TODO :  Order Total adds cost of added items and updates 
-         * 
-         */
+        
         private decimal _OrderTotal;
         public decimal OrderTotal
         {
@@ -83,8 +91,8 @@ namespace FinalAssignment.ViewModels
             }
         }
 
-        private String _SelectedPurchaser;
-        public String SelectedPurchaser
+        private User _SelectedPurchaser;
+        public User SelectedPurchaser
         {
             get
             {
@@ -195,16 +203,43 @@ namespace FinalAssignment.ViewModels
             tempAdd.Item = SelectedItemComboBox;
             tempAdd.ItemNumber = SelectedItemComboBox.ItemNumber;
             tempAdd.ItemCost = 0.0M;
-            tempAdd.Quantity = 0;
+            tempAdd.Quantity = 1;
             NewOrderItems.Add(tempAdd);
+            SelectedItemComboBox = null;
         }
 
+        //TODO: Check that each field is filled in correctly, return true/false
+        // Add NotifyOfPropertyChange(() => CanSaveOrder); to each relevant property
+        public bool CanSaveOrder
+        {
+            get
+            {
+                return true;
+            }
+        }
 
-        /*TODO: 
-         SaveOrder onclick method -- Add order to database -- Foreach row in datagrid add orderitem to database
-         Add check that order can be saved (save this for end too)
-         Method to calculate/update Order Total after user changes item quantity
-         Thats all I can think of off of the top of my head
-         oh, most importantly... Have Fun :P   */
+        //100% Untested save command
+        public void SaveOrder()
+        {
+            DatabaseInteraction dbi = new DatabaseInteraction();
+
+            Order ord = new Order();
+            ord.OrderNumber = OrderNumber;
+            ord.Purchaser = SelectedPurchaser;
+            ord.TotalCost = OrderTotal;
+            foreach(OrderItem oi in NewOrderItems)
+            {
+                ord.OrderItems.Add(oi);
+            }
+
+            dbi.SaveOrder(ord);
+        }
+
+        //TODO: calculate OrderTotal
+        //add UpdateTotalOrder(); to each relevant property
+        public void UpdateOrderTotal()
+        {
+
+        }
     }
 }
