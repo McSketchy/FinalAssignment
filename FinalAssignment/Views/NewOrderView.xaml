@@ -38,9 +38,9 @@
             <Button x:Name="AddItem" Margin="0,0,15,0" Content="Add Item" Width="75" HorizontalAlignment="Right"/>
             <ComboBox x:Name="ItemComboBox" Grid.Column="1" Width="200" HorizontalAlignment="Left" SelectedItem="SelectedItemComboBox" DisplayMemberPath="Name"/>
         </Grid>
-        <Separator/>
+        <Separator/> 
         <DataGrid x:Name="NewOrderItems" AutoGenerateColumns="False" MinWidth="500" 
-                  HorizontalAlignment="Center" Height="248">
+                  HorizontalAlignment="Center" Height="248" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Order Number" IsReadOnly="True" Binding="{Binding OrderNumber}"/>
                 <DataGridTextColumn Header="Quantity" IsReadOnly="False" Binding="{Binding Quantity}"/>
