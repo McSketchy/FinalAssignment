@@ -34,11 +34,8 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => Purchaser);
             }
         }
-        /*TODO: Add variables/properties for OrderNumber, PurchaseDate, OrderTotal, ItemComboBox
-         SelectedPurchaser, SelectedItem, and SelectedNewOrderItems*/
 
-        /* Unsure if these properties are needed or even if they will function as is
-         *  
+        //Property to initially set the Order Number to be used for this order
         private int _OrderNumber;
         public int OrderNumber
         {
@@ -53,8 +50,9 @@ namespace FinalAssignment.ViewModels
             }
         }
 
-        private int _PurchaseDate;
-        public int PurchaseDate
+        //Property to initially set the Purchase Date to be used for this order
+        private DateTime _PurchaseDate;
+        public DateTime PurchaseDate
         {
             get
             {
@@ -67,8 +65,8 @@ namespace FinalAssignment.ViewModels
             }
         }
 
-        private int _OrderTotal;
-        public int OrderTotal
+        private decimal _OrderTotal;
+        public decimal OrderTotal
         {
             get
             {
@@ -94,7 +92,6 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => Purchaser);
             }
         }
-        */
 
         private ObservableCollection<Item> _ItemComboBox;
         public ObservableCollection<Item> ItemComboBox
@@ -124,18 +121,25 @@ namespace FinalAssignment.ViewModels
             }
         }
 
+        //Constructor
         public NewOrderViewModel()
         {
             //DatabaseInteraction Object, check InventoryDataInteraction.DatabaseInteraction.cs
             //To see all the available methods for use.
             DatabaseInteraction dbi = new DatabaseInteraction();
 
-            //passing dbi method from above into OCollection COnstructor to populate the collection of users from the database
+            //passing dbi method from above into OCollection COnstructor to populate the collection of users/items from the database
             Purchaser = new ObservableCollection<User>(dbi.GetUsers());
-
             ItemComboBox = new ObservableCollection<Item>(dbi.GetItems());
 
+            //Set PurchaseDate at start as current date
+            PurchaseDate = DateTime.Today;
+
+            //Set order number to 1 greater than last order number
             GetOrderNumber();
+
+            //OrderTotal defaults to $0.00
+            OrderTotal = 0.0M;
         }
 
         public void GetOrderNumber()
@@ -146,14 +150,28 @@ namespace FinalAssignment.ViewModels
             var orderNum = (from order in orders
                             select order.OrderNumber).Last();
 
-            //NewOrder.OrderNumber = orderNum + 1;
+
+            OrderNumber = orderNum + 1;
 
         }
 
+        private ObservableCollection<OrderItem> _NewOrderItems;
+
+        public ObservableCollection<OrderItem> NewOrderItems
+        {
+            get
+            {
+                return _NewOrderItems;
+            }
+            set
+            {
+                _NewOrderItems = value;
+                 NotifyOfPropertyChange(() => NewOrderItems);
+            }
+        }
 
 
-
-        /*TODO: Populate Item ComboBox 
+        /*TODO: 
          AddItem onclick method -- Create OrderItem and add to datagrid (OrderNumber from above, quantity 0, cost from item, name from item)
          Add check that Item is selected (save this for the end)
          Set Quantity coluimn as Editable in datagrid

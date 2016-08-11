@@ -21,9 +21,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Margin="0,0,25,0" HorizontalAlignment="Right">Order Number:</Label>
-            <TextBox x:Name="OrderNumber" Width="200" IsEnabled="False" HorizontalAlignment="Left" Grid.Column="1" ></TextBox>
+            <TextBox x:Name="OrderNumber" Text="{Binding OrderNumber}" Width="200" IsEnabled="False" HorizontalAlignment="Left" Grid.Column="1" ></TextBox>
             <Label Grid.Column="0" Grid.Row="1" Margin="0,0,25,0" HorizontalAlignment="Right">PurchaseDate:</Label>
-            <TextBox x:Name="PurchaseDate" Width="200" Grid.Row="1" IsEnabled="False" HorizontalAlignment="Left" Grid.Column="1" ></TextBox>
+            <TextBox x:Name="PurchaseDate" Text="{Binding PurchaseDate}" Width="200" Grid.Row="1" HorizontalAlignment="Left" Grid.Column="1" ></TextBox>
             <Label Grid.Column="0" Grid.Row="2" Margin="0,0,25,0" HorizontalAlignment="Right">Purchaser:</Label>
             <ComboBox x:Name="Purchaser" DisplayMemberPath="Name" Width="200" Grid.Row="2" IsEditable="False" HorizontalAlignment="Left" Grid.Column="1" ></ComboBox>
             <Label Grid.Column="0" Grid.Row="3" Margin="0,0,25,0" HorizontalAlignment="Right">Order Total:</Label>
@@ -39,8 +39,6 @@
             <ComboBox x:Name="ItemComboBox" Grid.Column="1" Width="200" HorizontalAlignment="Left" SelectedItem="SelectedItemComboBox" DisplayMemberPath="Name"/>
         </Grid>
         <Separator/>
-        <!-- Create collection of OrderItem called NewOrderItems 
-        -->
         <DataGrid x:Name="NewOrderItems" AutoGenerateColumns="False" IsReadOnly="True" MinWidth="500" 
                   HorizontalAlignment="Center" Height="248">
             <DataGrid.Columns>
