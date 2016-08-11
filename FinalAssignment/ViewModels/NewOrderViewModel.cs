@@ -39,8 +39,8 @@ namespace FinalAssignment.ViewModels
 
         /* Unsure if these properties are needed or even if they will function as is
          *  
-         * private int OrderNumber;
-        public int _OrderNumber
+        private int _OrderNumber;
+        public int OrderNumber
         {
             get
             {
@@ -53,8 +53,8 @@ namespace FinalAssignment.ViewModels
             }
         }
 
-        private int PurchaseDate;
-        public int _PurchaseDate
+        private int _PurchaseDate;
+        public int PurchaseDate
         {
             get
             {
@@ -67,8 +67,8 @@ namespace FinalAssignment.ViewModels
             }
         }
 
-        private int OrderTotal;
-        public int _OrderTotal
+        private int _OrderTotal;
+        public int OrderTotal
         {
             get
             {
@@ -81,8 +81,8 @@ namespace FinalAssignment.ViewModels
             }
         }
 
-        private String SelectedPurchaser;
-        public String _SelectedPurchaser
+        private String _SelectedPurchaser;
+        public String SelectedPurchaser
         {
             get
             {
@@ -96,8 +96,8 @@ namespace FinalAssignment.ViewModels
         }
         */
 
-        private ObservableCollection<Item> ItemComboBox;
-        public ObservableCollection<Item> _ItemComboBox
+        private ObservableCollection<Item> _ItemComboBox;
+        public ObservableCollection<Item> ItemComboBox
         {
             get
             {
@@ -110,8 +110,8 @@ namespace FinalAssignment.ViewModels
             }
         }
 
-        private Item SelectedItemComboBox;
-        public ObservableCollection<Item> _SelectedItemComboBox
+        private Item _SelectedItemComboBox;
+        public Item SelectedItemComboBox
         {
             get
             {
@@ -132,6 +132,8 @@ namespace FinalAssignment.ViewModels
 
             //passing dbi method from above into OCollection COnstructor to populate the collection of users from the database
             Purchaser = new ObservableCollection<User>(dbi.GetUsers());
+
+            ItemComboBox = new ObservableCollection<Item>(dbi.GetItems());
         }
 
         public bool CanSave()
