@@ -41,7 +41,8 @@
         <Separator/>
         <!-- Create collection of OrderItem called NewOrderItems 
         -->
-        <DataGrid x:Name="NewOrderItems" AutoGenerateColumns="False" IsReadOnly="True" MinWidth="500" HorizontalAlignment="Center" Height="248">
+        <DataGrid x:Name="NewOrderItems" AutoGenerateColumns="False" IsReadOnly="True" MinWidth="500" 
+                  HorizontalAlignment="Center" Height="248">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Order Number" Binding="{Binding OrderNumber}"/>
                 <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
