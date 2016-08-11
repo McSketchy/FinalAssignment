@@ -134,12 +134,22 @@ namespace FinalAssignment.ViewModels
             Purchaser = new ObservableCollection<User>(dbi.GetUsers());
 
             ItemComboBox = new ObservableCollection<Item>(dbi.GetItems());
+
+            GetOrderNumber();
         }
 
-        public bool CanSave()
+        public void GetOrderNumber()
         {
-            return true; 
+            DatabaseInteraction dbi = new DatabaseInteraction();
+            List<Order> orders = new List<Order>(dbi.GetOrders());
+
+            var orderNum = (from order in orders
+                            select order.OrderNumber).Last();
+
+            //NewOrder.OrderNumber = orderNum + 1;
+
         }
+
 
 
 
