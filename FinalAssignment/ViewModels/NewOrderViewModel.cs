@@ -104,6 +104,7 @@ namespace FinalAssignment.ViewModels
             {
                 _ItemComboBox = value;
                 NotifyOfPropertyChange(() => ItemComboBox);
+                NotifyOfPropertyChange(() => CanAddItem);
             }
         }
 
@@ -118,6 +119,7 @@ namespace FinalAssignment.ViewModels
             {
                 _SelectedItemComboBox = value;
                 NotifyOfPropertyChange(() => SelectedItemComboBox);
+                NotifyOfPropertyChange(() => CanAddItem);
             }
         }
 
@@ -168,6 +170,22 @@ namespace FinalAssignment.ViewModels
                 _NewOrderItems = value;
                  NotifyOfPropertyChange(() => NewOrderItems);
             }
+        }
+
+
+        //this acts as ICommand CanExecute
+        public bool CanAddItem
+        {
+            get
+            {
+                return !(SelectedItemComboBox == null);
+            }
+        }
+
+        //this acts as ICommand onclick method
+        public void AddItem()
+        {
+            //add item to datagrid here
         }
 
 
