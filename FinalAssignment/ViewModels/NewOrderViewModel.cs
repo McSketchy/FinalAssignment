@@ -65,6 +65,10 @@ namespace FinalAssignment.ViewModels
             }
         }
 
+        /*
+         *  TODO :  Order Total adds cost of added items and updates 
+         * 
+         */
         private decimal _OrderTotal;
         public decimal OrderTotal
         {
@@ -142,6 +146,8 @@ namespace FinalAssignment.ViewModels
 
             //OrderTotal defaults to $0.00
             OrderTotal = 0.0M;
+
+            NewOrderItems = new ObservableCollection<OrderItem>();
         }
 
         public void GetOrderNumber()
@@ -158,7 +164,6 @@ namespace FinalAssignment.ViewModels
         }
 
         private ObservableCollection<OrderItem> _NewOrderItems;
-
         public ObservableCollection<OrderItem> NewOrderItems
         {
             get
@@ -172,7 +177,6 @@ namespace FinalAssignment.ViewModels
             }
         }
 
-
         //this acts as ICommand CanExecute
         public bool CanAddItem
         {
@@ -185,14 +189,18 @@ namespace FinalAssignment.ViewModels
         //this acts as ICommand onclick method
         public void AddItem()
         {
-            //add item to datagrid here
+            OrderItem tempAdd = new OrderItem();
+
+            tempAdd.OrderNumber = OrderNumber;
+            tempAdd.Item = SelectedItemComboBox;
+            tempAdd.ItemNumber = SelectedItemComboBox.ItemNumber;
+            tempAdd.ItemCost = 0.0M;
+            tempAdd.Quantity = 0;
+            NewOrderItems.Add(tempAdd);
         }
 
 
         /*TODO: 
-         AddItem onclick method -- Create OrderItem and add to datagrid (OrderNumber from above, quantity 0, cost from item, name from item)
-         Add check that Item is selected (save this for the end)
-         Set Quantity coluimn as Editable in datagrid
          SaveOrder onclick method -- Add order to database -- Foreach row in datagrid add orderitem to database
          Add check that order can be saved (save this for end too)
          Method to calculate/update Order Total after user changes item quantity

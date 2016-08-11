@@ -21,9 +21,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Margin="0,0,25,0" HorizontalAlignment="Right">Order Number:</Label>
-            <TextBox x:Name="OrderNumber" Text="{Binding OrderNumber}" Width="200" IsEnabled="False" HorizontalAlignment="Left" Grid.Column="1" ></TextBox>
+            <TextBox x:Name="OrderNumber" Width="200" IsEnabled="False" HorizontalAlignment="Left" Grid.Column="1" ></TextBox>
             <Label Grid.Column="0" Grid.Row="1" Margin="0,0,25,0" HorizontalAlignment="Right">PurchaseDate:</Label>
-            <TextBox x:Name="PurchaseDate" Text="{Binding PurchaseDate}" Width="200" Grid.Row="1" HorizontalAlignment="Left" Grid.Column="1" ></TextBox>
+            <TextBox x:Name="PurchaseDate" Width="200" Grid.Row="1" HorizontalAlignment="Left" Grid.Column="1" ></TextBox>
             <Label Grid.Column="0" Grid.Row="2" Margin="0,0,25,0" HorizontalAlignment="Right">Purchaser:</Label>
             <ComboBox x:Name="Purchaser" DisplayMemberPath="Name" Width="200" Grid.Row="2" IsEditable="False" HorizontalAlignment="Left" Grid.Column="1" ></ComboBox>
             <Label Grid.Column="0" Grid.Row="3" Margin="0,0,25,0" HorizontalAlignment="Right">Order Total:</Label>
@@ -39,13 +39,13 @@
             <ComboBox x:Name="ItemComboBox" Grid.Column="1" Width="200" HorizontalAlignment="Left" SelectedItem="SelectedItemComboBox" DisplayMemberPath="Name"/>
         </Grid>
         <Separator/>
-        <DataGrid x:Name="NewOrderItems" AutoGenerateColumns="False" IsReadOnly="True" MinWidth="500" 
+        <DataGrid x:Name="NewOrderItems" AutoGenerateColumns="False" MinWidth="500" 
                   HorizontalAlignment="Center" Height="248">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Order Number" Binding="{Binding OrderNumber}"/>
-                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
-                <DataGridTextColumn Header="Cost per Item" Binding="{Binding ItemCost}"/>
-                <DataGridTextColumn Header="Item" Binding="{Binding Item.Name}"/>
+                <DataGridTextColumn Header="Order Number" IsReadOnly="True" Binding="{Binding OrderNumber}"/>
+                <DataGridTextColumn Header="Quantity" IsReadOnly="False" Binding="{Binding Quantity}"/>
+                <DataGridTextColumn Header="Cost per Item" IsReadOnly="False" Binding="{Binding ItemCost, StringFormat=c}"/>
+                <DataGridTextColumn Header="Item" IsReadOnly="True" Binding="{Binding Item.Name}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Separator />
