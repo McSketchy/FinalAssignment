@@ -230,6 +230,7 @@ namespace FinalAssignment.ViewModels
             DatabaseInteraction dbi = new DatabaseInteraction();
 
             Order ord = new Order();
+            ord.DatePlaced = PurchaseDate;
             ord.OrderNumber = OrderNumber;
             ord.Purchaser = SelectedPurchaser;
             UpdateOrderTotal();
