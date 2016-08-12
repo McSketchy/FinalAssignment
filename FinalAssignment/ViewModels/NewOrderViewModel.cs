@@ -216,6 +216,10 @@ namespace FinalAssignment.ViewModels
             {
                 return true;
             }
+            set
+            {
+
+            }
         }
 
         //100% Untested save command
@@ -239,7 +243,29 @@ namespace FinalAssignment.ViewModels
         //add UpdateTotalOrder(); to each relevant property
         public void UpdateOrderTotal()
         {
+            var itemCosts =
+                from i in NewOrderItems
+                select i.ItemCost;
 
+            var itemQty =
+                from i in NewOrderItems
+                select i.Quantity;
+
+            List<decimal> tempCost = new List<decimal>();
+            int myIndex = 0;
+            foreach (var i in itemCosts)
+            {
+                tempCost.Add(i);
+            }
+
+            tempCost.ToArray();
+
+            foreach (var j in itemQty)
+            {
+                decimal tempQty = j;
+                OrderTotal += tempCost[myIndex] * tempQty;
+                myIndex++;
+            }
         }
     }
 }
