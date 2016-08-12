@@ -11,7 +11,12 @@ namespace FinalAssignment.ViewModels
 {
     class OrdersViewModel : Screen, INotifyPropertyChangedEx
     {
+        #region variables
         private Order _SelectedOrders;
+        private ObservableCollection<Order> _Orders;
+        #endregion
+
+        #region properties
         public Order SelectedOrders
         {
             get
@@ -24,8 +29,6 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => SelectedOrders);
             }
         }
-        private ObservableCollection<Order> _Orders;
-
         public ObservableCollection<Order> Orders
         {
             get
@@ -38,15 +41,18 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => Orders);
             }
         }
+        #endregion
 
+        #region constructors
         public OrdersViewModel()
         {
             DatabaseInteraction dbi = new DatabaseInteraction();
             Orders = new ObservableCollection<Order>(dbi.GetOrders());
             //generateTempData();
         }
+        #endregion
 
-        #region tempData
+        #region methods
         /// <summary>
         /// creates temporary data for testing purposes
         /// </summary>

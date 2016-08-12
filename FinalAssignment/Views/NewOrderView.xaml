@@ -3,13 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"          
+        xmlns:cal="http://www.caliburnproject.org"
         xmlns:local="clr-namespace:FinalAssignment.Views"
         mc:Ignorable="d"
         Height="500" Width="800">
     <StackPanel>
         <TextBlock Text="Create New Order" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24"/>
         <Separator />
-        <Grid>
+        <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -28,10 +30,10 @@
             <ComboBox x:Name="Purchaser" SelectedItem="SelectedPurchaser" DisplayMemberPath="Name" Width="200" Grid.Row="2"
                       IsEditable="False" HorizontalAlignment="Left" Grid.Column="1" ></ComboBox>
             <Label Grid.Column="0" Grid.Row="3" Margin="0,0,25,0" HorizontalAlignment="Right">Order Total:</Label>
-            <TextBox x:Name="OrderTotal" Width="200" Grid.Row="3" IsEnabled="False" HorizontalAlignment="Left" Grid.Column="1" ></TextBox>
+            <TextBox x:Name="OrderTotal" Text="{Binding OrderTotal, StringFormat=c}" Width="200" Grid.Row="3" IsEnabled="False" HorizontalAlignment="Left" Grid.Column="1"></TextBox>
         </Grid>
         <Separator/>
-        <Grid>
+        <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -40,16 +42,17 @@
             <ComboBox x:Name="ItemComboBox" Grid.Column="1" Width="200" HorizontalAlignment="Left" SelectedItem="SelectedItemComboBox" DisplayMemberPath="Name"/>
         </Grid>
         <Separator/> 
-        <DataGrid x:Name="NewOrderItems" AutoGenerateColumns="False" MinWidth="500" 
-                  HorizontalAlignment="Center" Height="248" CanUserAddRows="False">
+        <DataGrid x:Name="NewOrderItems" AutoGenerateColumns="False"  
+                  HorizontalAlignment="Center" Height="248" CanUserAddRows="False"
+                  cal:Message.Attach="[Event CellEditEnding]=[Action UpdateOrderTotal()]">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Order Number" IsReadOnly="True" Binding="{Binding OrderNumber}"/>
-                <DataGridTextColumn Header="Quantity" IsReadOnly="False" Binding="{Binding Quantity}"/>
-                <DataGridTextColumn Header="Cost per Item" IsReadOnly="False" Binding="{Binding ItemCost, StringFormat=c}"/>
+                <DataGridTextColumn Header="Quantity" IsReadOnly="False" Binding="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Cost per Item" IsReadOnly="False" Binding="{Binding ItemCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat =c}"/>
                 <DataGridTextColumn Header="Item" IsReadOnly="True" Binding="{Binding Item.Name}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Separator />
-        <Button x:Name="SaveOrder" Content="Save Order" VerticalAlignment="Bottom"/>
+        <Button x:Name="SaveOrder" Content="Save Order" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Bottom"/>
     </StackPanel>
 </UserControl>

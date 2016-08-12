@@ -11,7 +11,7 @@ namespace FinalAssignment.ViewModels
 {
     class MainViewModel : Conductor<IScreen>.Collection.OneActive
     {
-
+        #region methods
         /// <summary>
         /// Button Click event for Orders Button
         /// Loads the Orders view
@@ -50,5 +50,6 @@ namespace FinalAssignment.ViewModels
             base.OnActivate();
             ShowOrders();
         }
+        #endregion
     }
 }

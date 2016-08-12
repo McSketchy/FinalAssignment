@@ -1,24 +1,4 @@
-﻿
-
-
-
-
-
-
-
-/*TODO: 
- * Finish CanSaveOrder property
- * Finish UpdateOrderTotal method
- * Test SaveOrder Mehtod
- * Make it Pretty
- */
-
-
-
-
-
-
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,13 +7,24 @@ using System.Threading.Tasks;
 using InventoryData;
 using InventoryDataInteraction;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace FinalAssignment.ViewModels
 {
     class NewOrderViewModel : Screen, INotifyPropertyChangedEx
     {
-        // Private variable with corresopnding public property
+        #region variables
         private ObservableCollection<User> _Purchaser;
+        private int _OrderNumber;
+        private DateTime _PurchaseDate;
+        private decimal _OrderTotal;
+        private User _SelectedPurchaser;
+        private ObservableCollection<Item> _ItemComboBox;
+        private Item _SelectedItemComboBox;
+        private ObservableCollection<OrderItem> _NewOrderItems;
+        #endregion
+
+        #region properties
         public ObservableCollection<User> Purchaser
         {
             get
@@ -46,9 +37,6 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => Purchaser);
             }
         }
-
-        //Property to initially set the Order Number to be used for this order
-        private int _OrderNumber;
         public int OrderNumber
         {
             get
@@ -61,9 +49,6 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => OrderNumber);
             }
         }
-
-        //Property to initially set the Purchase Date to be used for this order
-        private DateTime _PurchaseDate;
         public DateTime PurchaseDate
         {
             get
@@ -77,8 +62,6 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => CanSaveOrder);
             }
         }
-        
-        private decimal _OrderTotal;
         public decimal OrderTotal
         {
             get
@@ -92,9 +75,7 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => CanSaveOrder);
             }
         }
-
-        private User _SelectedPurchaser;
-        public User SelectedPurchaser
+       public User SelectedPurchaser
         {
             get
             {
@@ -107,8 +88,6 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => CanSaveOrder);
             }
         }
-
-        private ObservableCollection<Item> _ItemComboBox;
         public ObservableCollection<Item> ItemComboBox
         {
             get
@@ -122,8 +101,6 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => CanAddItem);
             }
         }
-
-        private Item _SelectedItemComboBox;
         public Item SelectedItemComboBox
         {
             get
@@ -137,44 +114,6 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => CanAddItem);
             }
         }
-
-        //Constructor
-        public NewOrderViewModel()
-        {
-            //DatabaseInteraction Object, check InventoryDataInteraction.DatabaseInteraction.cs
-            //To see all the available methods for use.
-            DatabaseInteraction dbi = new DatabaseInteraction();
-
-            //passing dbi method from above into OCollection COnstructor to populate the collection of users/items from the database
-            Purchaser = new ObservableCollection<User>(dbi.GetUsers());
-            ItemComboBox = new ObservableCollection<Item>(dbi.GetItems());
-
-            //Set PurchaseDate at start as current date
-            PurchaseDate = DateTime.Today;
-
-            //Set order number to 1 greater than last order number
-            GetOrderNumber();
-
-            //OrderTotal defaults to $0.00
-            OrderTotal = 0.0M;
-
-            NewOrderItems = new ObservableCollection<OrderItem>();
-        }
-
-        public void GetOrderNumber()
-        {
-            DatabaseInteraction dbi = new DatabaseInteraction();
-            List<Order> orders = new List<Order>(dbi.GetOrders());
-
-            var orderNum = (from order in orders
-                            select order.OrderNumber).Last();
-
-
-            OrderNumber = orderNum + 1;
-
-        }
-
-        private ObservableCollection<OrderItem> _NewOrderItems;
         public ObservableCollection<OrderItem> NewOrderItems
         {
             get
@@ -184,11 +123,9 @@ namespace FinalAssignment.ViewModels
             set
             {
                 _NewOrderItems = value;
-                 NotifyOfPropertyChange(() => NewOrderItems);
+                NotifyOfPropertyChange(() => NewOrderItems);
             }
         }
-
-        //this acts as ICommand CanExecute
         public bool CanAddItem
         {
             get
@@ -196,8 +133,54 @@ namespace FinalAssignment.ViewModels
                 return !(SelectedItemComboBox == null);
             }
         }
+        public bool CanSaveOrder
+        {
+            get
+            {
+                if (NewOrderItems == null)
+                {
+                    return false;
+                }
+                if (SelectedPurchaser != null && PurchaseDate != null && OrderTotal != 0.0M && NewOrderItemsValid())
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        #endregion
 
-        //this acts as ICommand onclick method
+        #region constructors
+        public NewOrderViewModel()
+        {
+            DatabaseInteraction dbi = new DatabaseInteraction();
+            Purchaser = new ObservableCollection<User>(dbi.GetUsers());
+            ItemComboBox = new ObservableCollection<Item>(dbi.GetItems());
+            NewOrderItems = new ObservableCollection<OrderItem>();
+            PurchaseDate = DateTime.Today;
+            GetOrderNumber();
+            OrderTotal = 0.0M;
+        }
+        #endregion
+
+        #region methods
+        /// <summary>
+        /// Retrieves the last used OrerNumber from the Orders table in the database
+        /// Set the OrderNumber property to the next available OrderNumber
+        /// </summary>
+        public void GetOrderNumber()
+        {
+            DatabaseInteraction dbi = new DatabaseInteraction();
+            List<Order> orders = new List<Order>(dbi.GetOrders());
+
+            var orderNum = (from order in orders
+                            select order.OrderNumber).Last();
+
+            OrderNumber = orderNum + 1;
+        }
+        /// <summary>
+        /// Adds a new Item to the current Order
+        /// </summary>
         public void AddItem()
         {
             OrderItem tempAdd = new OrderItem();
@@ -211,20 +194,9 @@ namespace FinalAssignment.ViewModels
             SelectedItemComboBox = null;
             UpdateOrderTotal();
         }
-
-        public bool CanSaveOrder
-        {
-            get
-            {
-                if (SelectedPurchaser != null && PurchaseDate != null && OrderTotal != 0.0M)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        //100% Untested save command
+        /// <summary>
+        /// Saves the current Order to the database
+        /// </summary>
         public void SaveOrder()
         {
             DatabaseInteraction dbi = new DatabaseInteraction();
@@ -233,7 +205,6 @@ namespace FinalAssignment.ViewModels
             ord.DatePlaced = PurchaseDate;
             ord.OrderNumber = OrderNumber;
             ord.Purchaser = SelectedPurchaser;
-            UpdateOrderTotal();
             ord.TotalCost = OrderTotal;
             foreach(OrderItem oi in NewOrderItems)
             {
@@ -241,8 +212,39 @@ namespace FinalAssignment.ViewModels
             }
 
             dbi.SaveOrder(ord);
+            MessageBox.Show("Order Has Been Saved", "Save Order");
+            ClearNewOrderView();
         }
+        /// <summary>
+        /// Resets the OrderView for use in the next order
+        /// </summary>
+        public void ClearNewOrderView()
+        {
+            GetOrderNumber();
+            PurchaseDate = DateTime.Today;
+            OrderTotal = 0.0M;
+            SelectedPurchaser = null;
+            NewOrderItems = new ObservableCollection<OrderItem>();
+        }
+        /// <summary>
+        /// Validates that all fields in the OrderItem Datagrid ahve been populated correctly
+        /// </summary>
+        /// <returns></returns>
+        public bool NewOrderItemsValid()
+        {
+            foreach(OrderItem oi in NewOrderItems)
+            {
+                if (oi.Quantity <= 0 || oi.ItemCost <= 0)
+                {
+                    return false;
+                }
+            }
 
+            return true;
+        }
+        /// <summary>
+        /// Updates the total cost of the order
+        /// </summary>
         public void UpdateOrderTotal()
         {
             OrderTotal = 0.0M;
@@ -251,34 +253,7 @@ namespace FinalAssignment.ViewModels
             {
                 OrderTotal += (oi.Quantity * oi.ItemCost);
             }
-
-            /*  Hurray for learning!
-            
-            var itemCosts =
-                from i in NewOrderItems
-                select i.ItemCost;
-
-            var itemQty =
-                from i in NewOrderItems
-                select i.Quantity;
-
-            List<decimal> tempCost = new List<decimal>();
-            int myIndex = 0;
-            foreach (var i in itemCosts)
-            {
-                tempCost.Add(i);
-            }
-
-            tempCost.ToArray();
-
-            foreach (var j in itemQty)
-            {
-                decimal tempQty = j;
-                OrderTotal += tempCost[myIndex] * tempQty;
-                myIndex++;
-            }
-            
-             */
         }
+        #endregion
     }
 }
