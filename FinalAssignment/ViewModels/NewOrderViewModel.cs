@@ -74,6 +74,7 @@ namespace FinalAssignment.ViewModels
             {
                 _PurchaseDate = value;
                 NotifyOfPropertyChange(() => PurchaseDate);
+                NotifyOfPropertyChange(() => CanSaveOrder);
             }
         }
         
@@ -88,6 +89,7 @@ namespace FinalAssignment.ViewModels
             {
                 _OrderTotal = value;
                 NotifyOfPropertyChange(() => OrderTotal);
+                NotifyOfPropertyChange(() => CanSaveOrder);
             }
         }
 
@@ -102,6 +104,7 @@ namespace FinalAssignment.ViewModels
             {
                 _SelectedPurchaser = value;
                 NotifyOfPropertyChange(() => Purchaser);
+                NotifyOfPropertyChange(() => CanSaveOrder);
             }
         }
 
@@ -202,23 +205,22 @@ namespace FinalAssignment.ViewModels
             tempAdd.OrderNumber = OrderNumber;
             tempAdd.Item = SelectedItemComboBox;
             tempAdd.ItemNumber = SelectedItemComboBox.ItemNumber;
-            tempAdd.ItemCost = 0.0M;
+            tempAdd.ItemCost = SelectedItemComboBox.Cost * 1.15M;
             tempAdd.Quantity = 1;
             NewOrderItems.Add(tempAdd);
             SelectedItemComboBox = null;
+            UpdateOrderTotal();
         }
 
-        //TODO: Check that each field is filled in correctly, return true/false
-        // Add NotifyOfPropertyChange(() => CanSaveOrder); to each relevant property
         public bool CanSaveOrder
         {
             get
             {
-                return true;
-            }
-            set
-            {
-
+                if (SelectedPurchaser != null && PurchaseDate != null && OrderTotal != 0.0M)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -230,6 +232,7 @@ namespace FinalAssignment.ViewModels
             Order ord = new Order();
             ord.OrderNumber = OrderNumber;
             ord.Purchaser = SelectedPurchaser;
+            UpdateOrderTotal();
             ord.TotalCost = OrderTotal;
             foreach(OrderItem oi in NewOrderItems)
             {
@@ -239,10 +242,17 @@ namespace FinalAssignment.ViewModels
             dbi.SaveOrder(ord);
         }
 
-        //TODO: calculate OrderTotal
-        //add UpdateTotalOrder(); to each relevant property
         public void UpdateOrderTotal()
         {
+            OrderTotal = 0.0M;
+
+            foreach(OrderItem oi in NewOrderItems)
+            {
+                OrderTotal += (oi.Quantity * oi.ItemCost);
+            }
+
+            /*  Hurray for learning!
+            
             var itemCosts =
                 from i in NewOrderItems
                 select i.ItemCost;
@@ -266,6 +276,8 @@ namespace FinalAssignment.ViewModels
                 OrderTotal += tempCost[myIndex] * tempQty;
                 myIndex++;
             }
+            
+             */
         }
     }
 }
