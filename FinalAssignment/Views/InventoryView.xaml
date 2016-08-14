@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <DataGrid x:Name="Items" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="0"
-                  HorizontalAlignment="Center" Margin="0,0,0,20">
+                Style="{StaticResource invGrid}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Item Number" Binding="{Binding ItemNumber}"/>
                 <DataGridTextColumn Header="Item Name" Binding="{Binding Name}"/>

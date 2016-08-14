@@ -173,10 +173,22 @@ namespace FinalAssignment.ViewModels
             DatabaseInteraction dbi = new DatabaseInteraction();
             List<Order> orders = new List<Order>(dbi.GetOrders());
 
-            var orderNum = (from order in orders
-                            select order.OrderNumber).Last();
+            try
+            {
+                var orderNum = (from order in orders
+                                select order.OrderNumber).Last();
 
-            OrderNumber = orderNum + 1;
+                OrderNumber = orderNum + 1;
+            }
+            catch (Exception e)
+            {
+
+                OrderNumber = 1;
+            }
+            //var orderNum = (from order in orders
+            //                select order.OrderNumber).Last();
+
+            //OrderNumber = orderNum + 1;
         }
         /// <summary>
         /// Adds a new Item to the current Order

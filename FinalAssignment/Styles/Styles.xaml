@@ -2,29 +2,69 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:FinalAssignment.Styles">
 
-    <!-- Pages  Set the background of each page to a color. It can be the same color, but it shouldn’t be the 
-            default color-->
     <Style TargetType="Window" >
         <Setter Property="Background" Value="AliceBlue"/>
     </Style>
+    <!-- Pages  Set the background of each page to a color. It can be the same color, but it shouldn’t be the 
+            default color-->
+    <Style TargetType="Grid">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
 
-    <!-- DataGrid  Make the rows alternate in color-->
-    <Style TargetType="DataGrid">
+    <Style x:Key="d8aGrids" TargetType="DataGrid" >
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Height" Value="200"/>
+    </Style>
+
+    <Style x:Key="invGrid" TargetType="DataGrid">
+        <!-- DataGrid  Make the rows alternate in color-->
         <Setter Property="Background" Value="LightGray" />
         <Setter Property="AlternatingRowBackground" Value="LightGreen"/>
         <Setter Property="AlternationCount" Value="2"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,20" />
     </Style>
-
-    <!-- TODO  NewOrderPage Title  style your title to look like an actual title. Change the font sizes, text weight, 
+    
+    <!--   NewOrderPage Title  style your title to look like an actual title. Change the font sizes, text weight, 
             possibly color, etc.-->
+    <Style x:Key="newOrderTitle" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
     
 
-    <!--TODO    NewOrderPage fields  You should style your fields to look nicer.-->
+    <!--    NewOrderPage fields  You should style your fields to look nicer.-->
 
-    <!-- TODO NewOrderPage fields
+    <!--  NewOrderPage fields
              Give the labels a style to make them look neat (lined up, take up the right size to fit the box, etc.).-->
+    <Style  TargetType="Label">
+        <Setter Property="FontStretch" Value="Expanded"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
 
-    <!--TODO NewOrderPage fields
+    <Style TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Margin" Value="5,5,5,5"/>
+    </Style>
+    
+    <!-- NewOrderPage fields
         style the text inputs to look nice as well. Line up the text inside, make them the right font size, etc.-->
+    <Style TargetType="Label">
+        <Setter Property="Margin" Value="0,0,25,0" />
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <Style TargetType="TextBox">
+        <Setter Property="Width" Value="200" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <Style TargetType="ComboBox">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Width" Value="200"/>
+    </Style>
     
 </ResourceDictionary>
