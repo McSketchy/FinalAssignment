@@ -9,7 +9,11 @@
             default color-->
     
     <Style x:Key="d8aGrids" TargetType="DataGrid" >
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="AlternatingRowBackground" Value="LightGreen"/>
+        <Setter Property="AlternationCount" Value="2"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,20" />
         <Setter Property="Height" Value="200"/>
     </Style>
 
