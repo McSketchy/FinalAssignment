@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:FinalAssignment.Styles">
+
+    <!-- Pages  Set the background of each page to a color. It can be the same color, but it shouldn’t be the 
+            default color-->
+    <Style TargetType="Window" >
+        <Setter Property="Background" Value="AliceBlue"/>
+    </Style>
+
+    <!-- DataGrid  Make the rows alternate in color-->
+    <Style TargetType="DataGrid">
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="AlternatingRowBackground" Value="LightGreen"/>
+        <Setter Property="AlternationCount" Value="2"/>
+    </Style>
+
+    <!-- TODO  NewOrderPage Title  style your title to look like an actual title. Change the font sizes, text weight, 
+            possibly color, etc.-->
+    
+
+    <!--TODO    NewOrderPage fields  You should style your fields to look nicer.-->
+
+    <!-- TODO NewOrderPage fields
+             Give the labels a style to make them look neat (lined up, take up the right size to fit the box, etc.).-->
+
+    <!--TODO NewOrderPage fields
+        style the text inputs to look nice as well. Line up the text inside, make them the right font size, etc.-->
+    
+</ResourceDictionary>
