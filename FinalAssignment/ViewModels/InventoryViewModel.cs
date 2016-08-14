@@ -12,8 +12,11 @@ namespace FinalAssignment.ViewModels
 {
     class InventoryViewModel : Screen, INotifyPropertyChangedEx
     {
+        #region variables
         private ObservableCollection<Item> _Items;
+        #endregion
 
+        #region properties
         public ObservableCollection<Item> Items
         {
             get
@@ -26,16 +29,18 @@ namespace FinalAssignment.ViewModels
                 NotifyOfPropertyChange(() => Items);
             }
         }
+        #endregion
 
+        #region constructors
         public InventoryViewModel()
         {
             DatabaseInteraction dbi = new DatabaseInteraction();
             Items = new ObservableCollection<Item>(dbi.GetItems());
             //generateTempData();
         }
+        #endregion
 
-        #region fakeData
-
+        #region methods
         public void generateTempData()
         {
             Item iA = new Item();

@@ -29,7 +29,7 @@
         <Separator Grid.Row="1"/>
         
         <DataGrid Grid.Row="2" x:Name="SelectedOrders_OrderItems" AutoGenerateColumns="False" IsReadOnly="True"
-                  HorizontalAlignment="Center" Margin="0,0,0,10">
+                  HorizontalAlignment="Center" Margin="0,0,0,20">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Item Number" Binding="{Binding Item.ItemNumber}" />
                 <DataGridTextColumn Header="Item Name" Binding="{Binding Item.Name}"/>
