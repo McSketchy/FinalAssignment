@@ -35,7 +35,7 @@
                      Grid.Column="1"></TextBox>
         </Grid>
         <Separator/>
-        <Grid>
+        <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>

@@ -7,10 +7,7 @@
     </Style>
     <!-- Pages  Set the background of each page to a color. It can be the same color, but it shouldn’t be the 
             default color-->
-    <Style TargetType="Grid">
-        <Setter Property="HorizontalAlignment" Value="Center" />
-    </Style>
-
+    
     <Style x:Key="d8aGrids" TargetType="DataGrid" >
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Height" Value="200"/>
@@ -38,10 +35,10 @@
 
     <!--  NewOrderPage fields
              Give the labels a style to make them look neat (lined up, take up the right size to fit the box, etc.).-->
-    <Style  TargetType="Label">
-        <Setter Property="FontStretch" Value="Expanded"/>
+    <!--<Style  TargetType="Label">
+        --><!--<Setter Property="FontStretch" Value="Expanded"/>--><!--
         <Setter Property="HorizontalAlignment" Value="Center"/>
-    </Style>
+    </Style>-->
 
     <Style TargetType="Button">
         <Setter Property="HorizontalAlignment" Value="Center"/>
